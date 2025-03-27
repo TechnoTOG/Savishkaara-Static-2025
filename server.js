@@ -31,22 +31,20 @@ let serverStatus = {
   'snacktrack': 'online',    // Default status for snacktrack
 };
 
-app.use((req, res, next) => {
-  if (redirectToMaintenanceIfNeeded('website', res)) return;
-  next();
-});
-
 // Handle clean URLs for HTML pages
 app.get('/about', (req, res) => {
+    if (redirectToMaintenanceIfNeeded('website', res)) return; // Stop execution if redirected
   res.sendFile(path.join(__dirname, 'public', 'about.html'));
 });
 
 app.get('/contact', (req, res) => {
+    if (redirectToMaintenanceIfNeeded('website', res)) return; // Stop execution if redirected
   res.sendFile(path.join(__dirname, 'public', 'contact.html'));
 });
 
 // Default route for the home page
 app.get('/', (req, res) => {
+    if (redirectToMaintenanceIfNeeded('website', res)) return; // Stop execution if redirected
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
@@ -57,9 +55,11 @@ app.get('/:page', (req, res) => {
 
   // Check if the file exists
   if (fs.existsSync(filePath)) {
+    if (redirectToMaintenanceIfNeeded('website', res)) return; // Stop execution if redirected
      // Redirect if needed
     res.sendFile(filePath); // Send the requested file
   } else {
+    if (redirectToMaintenanceIfNeeded('website', res)) return; // Stop execution if redirected
     // Send the 404 error page
     res.status(404).sendFile(path.join(__dirname, 'public', '404.html'));
   }
