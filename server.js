@@ -126,7 +126,9 @@ app.post('/api/server-update', async (req, res) => {
     }
   } else if (server === 'website') {
     console.log("Server loaded with mode: ", status);
-    res.status(200).send(`Website updated successfully to ${status}`);
+    return res.status(200).json({
+      message: `Website updated successfully to ${status}`,
+    });
   } else if (server === 'snacktrack') {
     try {
         // Forward the POST request to http://localhost:3035
