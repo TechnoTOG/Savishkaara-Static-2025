@@ -78,7 +78,7 @@ app.post('/api/server-dash', (req, res) => {
       // Define allowed statuses for each server
       const allowedStatuses = {
         'control-panel': ['online', 'maintenance'],
-        'website': ['online', 'maintenance'],
+        'website': ['online', 'maintenance', 'construction'],
         'snacktrack': ['online', 'offline']
       };
   
@@ -159,8 +159,11 @@ app.post('/api/server-update', async (req, res) => {
 
 // Helper function to check server status and redirect if necessary
 function redirectToMaintenanceIfNeeded(serverName, res) {
-  if (serverStatus[serverName] === 'maintenance') {
+  if (serverStatus[serverName] === 'construction') {
     res.sendFile(path.join(__dirname, 'public', 'construction.html'));
+    return true; // Indicates redirection occurred
+  } else if(serverStatus[serverName] === 'maintenance') {
+    res.sendFile(path.join(__dirname, 'public', 'maintenance.html'));
     return true; // Indicates redirection occurred
   }
   return false; // No redirection
