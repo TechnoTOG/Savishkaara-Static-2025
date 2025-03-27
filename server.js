@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require('express');
 const path = require('path');
 const fs = require('fs'); // Import the 'fs' module for file existence checks
@@ -21,7 +22,7 @@ app.set('views', path.join(__dirname, 'views'));
 // Simulated user credentials (password is hashed using bcrypt)
 const validUser = {
   username: 'jackpine',
-  password: bcrypt.hashSync('1#devcontrol!', 10), // Hashed password
+  password: bcrypt.hashSync(process.env.PASSWORD, 10), // Hashed password
 };
 
 // Track server status globally
