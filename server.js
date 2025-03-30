@@ -140,8 +140,6 @@ app.post('/api/server-update', async (req, res) => {
           message: `${server.charAt(0).toUpperCase() + server.slice(1)} updated successfully to ${status}`,
           forwardedResponse: response.data,
         };
-
-        console.log(combinedResponse);
   
         // Send the combined response back to the client
         res.status(200).json(combinedResponse);
