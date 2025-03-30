@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs'); // Import the 'fs' module for file existence checks
 const bcrypt = require('bcryptjs');
+const axios = require('axios');
 
 // Create an instance of Express
 const app = express();
@@ -132,10 +133,7 @@ app.post('/api/server-update', async (req, res) => {
   } else if (server === 'snacktrack') {
     try {
         // Forward the POST request to http://localhost:3035
-        const response = await axios.post('http://localhost:3035', {
-          server,
-          status,
-        });
+        const response = await axios.post('http://localhost:3035/api/update-server-status', { status });
   
         // Combine your custom message with the response from the forwarded request
         const combinedResponse = {
