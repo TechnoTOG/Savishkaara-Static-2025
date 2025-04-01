@@ -71,11 +71,17 @@ app.get('/api/server-login', (req, res) => {
   res.render('serverLogin');
 });
 
-app.post('/api/server-dash', (req, res) => {
+app.post('/api/server-dash', async (req, res) => {
     const { username, password } = req.body;
   
     // Validate username and password
     if (username === validUser.username && bcrypt.compareSync(password, validUser.password)) {
+
+      await axios.get('http://localhost:3035/api/mode')
+        .then(response => {
+          serverStatus['snacktrack'] = response.data.mode;
+        });
+
       // Define allowed statuses for each server
       const allowedStatuses = {
         'control-panel': ['online', 'maintenance'],
