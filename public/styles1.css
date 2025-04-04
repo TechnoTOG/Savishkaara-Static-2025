@@ -762,17 +762,17 @@ html, body {
 
 @font-face {
     font-family: 'Pricedown';
-    src: url('fonts/Pricedown Bl.otf') format('truetype');
+    src: url('../assets/fonts/Pricedown_Bl.otf') format('truetype');
 }
 
 @font-face {
     font-family: 'rage';
-    src: url('fonts/diploma.ttf');
+    src: url('../assets/fonts/diploma.ttf');
 }
 
 @font-face {
     font-family: 'sf';
-    src: url('fonts/BigShouldersStencilDisplay-SemiBold.ttf') format('truetype');
+    src: url('../assets/fonts/BigShouldersStencilDisplay-SemiBold.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }

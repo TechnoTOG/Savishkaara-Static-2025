@@ -50,22 +50,27 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Dynamic route for other pages
-app.get('/:page', (req, res) => {
+app.get('/events', (req, res) => {
+  if (redirectToMaintenanceIfNeeded('website', res)) return; // Stop execution if redirected
+res.sendFile(path.join(__dirname, 'public', 'events.html'));
+});
+
+// Dynamic route for pages and events
+app.get(['/:page', '/events/:page'], (req, res) => {
+  const baseDir = req.path.startsWith('/events') ? 'public/events' : 'public';
   const page = req.params.page;
-  const filePath = path.join(__dirname, 'public', `${page}.html`);
+  const filePath = path.join(__dirname, baseDir, `${page}.html`);
 
   // Check if the file exists
   if (fs.existsSync(filePath)) {
     if (redirectToMaintenanceIfNeeded('website', res)) return; // Stop execution if redirected
-     // Redirect if needed
     res.sendFile(filePath); // Send the requested file
   } else {
     if (redirectToMaintenanceIfNeeded('website', res)) return; // Stop execution if redirected
-    // Send the 404 error page
-    res.status(404).sendFile(path.join(__dirname, 'public', '404.html'));
+    res.status(404).sendFile(path.join(__dirname, 'public', '404.html')); // Send the 404 page
   }
 });
+
 
 app.get('/api/server-login', (req, res) => {
   res.render('serverLogin');

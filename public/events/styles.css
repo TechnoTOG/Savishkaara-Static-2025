@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'Pricedown Custom';
-  src: url('https://savishkaara.in/assets/font/Pricedown_Bl.otf') format('opentype');
+  src: url('../assets/fonts/Pricedown_Bl.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
 }
