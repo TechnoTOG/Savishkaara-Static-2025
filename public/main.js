@@ -62,129 +62,73 @@ document.querySelectorAll('.menu-list a').forEach(anchor => {
 
 
 
-document.addEventListener('DOMContentLoaded', function() {
-  const cardsWrapper = document.getElementById('cardsWrapper');
-  const cards = Array.from(document.querySelectorAll('.card'));
-  const prevArrow = document.getElementById('prevArrow');
-  const nextArrow = document.getElementById('nextArrow');
-  let autoScrollInterval;
-  const scrollDelay = 2000; // 2 seconds for faster auto-scrolling
+const cards = document.querySelectorAll(".card");
+  const prevArrow = document.getElementById("prevArrow");
+  const nextArrow = document.getElementById("nextArrow");
   let currentIndex = 0;
+  let autoplayInterval;
 
-  // Initialize carousel positions
-  function initializeCarousel() {
-    cards.forEach((card, index) => {
-      card.dataset.index = index;
-      updateCardPosition(card, index - currentIndex);
+  function mod(n, m) {
+    return ((n % m) + m) % m; // handles negative values too
+  }
+
+  function updateCards() {
+    cards.forEach((card, i) => {
+      card.classList.remove("active", "prev", "next", "far-prev", "far-next", "hidden");
+    });
+
+    const total = cards.length;
+    const active = mod(currentIndex, total);
+    const prev = mod(currentIndex - 1, total);
+    const next = mod(currentIndex + 1, total);
+    const farPrev = mod(currentIndex - 2, total);
+    const farNext = mod(currentIndex + 2, total);
+
+    cards[active].classList.add("active");
+    cards[prev].classList.add("prev");
+    cards[next].classList.add("next");
+    cards[farPrev].classList.add("far-prev");
+    cards[farNext].classList.add("far-next");
+
+    // Hide all others
+    cards.forEach((card, i) => {
+      if (![active, prev, next, farPrev, farNext].includes(i)) {
+        card.classList.add("hidden");
+      }
     });
   }
 
-  // Update card position based on its relative position to currentIndex
-  function updateCardPosition(card, relativePos) {
-    const totalCards = cards.length;
-    const wrappedPos = ((relativePos % totalCards) + totalCards) % totalCards;
-    
-    card.classList.remove('active', 'prev', 'next', 'far-prev', 'far-next', 'hidden');
-    
-    if (wrappedPos === 0) {
-      card.classList.add('active');
-    } else if (wrappedPos === 1 || wrappedPos === totalCards - 1) {
-      card.classList.add(wrappedPos === 1 ? 'next' : 'prev');
-    } else if (wrappedPos === 2 || wrappedPos === totalCards - 2) {
-      card.classList.add(wrappedPos === 2 ? 'far-next' : 'far-prev');
-    } else {
-      card.classList.add('hidden');
-    }
+  function moveNext() {
+    currentIndex++;
+    updateCards();
   }
 
-  // Update all cards based on currentIndex
-  function updateAllCards() {
-    cards.forEach((card, index) => {
-      const relativePos = index - currentIndex;
-      updateCardPosition(card, relativePos);
-    });
+  function movePrev() {
+    currentIndex--;
+    updateCards();
   }
 
-  // Move carousel by specified number of positions
-  function moveCarousel(offset) {
-    const totalCards = cards.length;
-    currentIndex = (currentIndex + offset + totalCards) % totalCards;
-    updateAllCards();
+  function startAutoplay() {
+    autoplayInterval = setInterval(moveNext, 4000);
   }
 
-  // Auto-scroll functionality
-  function startAutoScroll() {
-    autoScrollInterval = setInterval(() => {
-      moveCarousel(1);
-    }, scrollDelay);
+  function resetAutoplay() {
+    clearInterval(autoplayInterval);
+    startAutoplay();
   }
 
-  function resetAutoScroll() {
-    clearInterval(autoScrollInterval);
-    startAutoScroll();
-  }
-
-  // Event listeners
-  prevArrow.addEventListener('click', () => {
-    moveCarousel(-1);
-    resetAutoScroll();
+  prevArrow.addEventListener("click", () => {
+    movePrev();
+    resetAutoplay();
   });
 
-  nextArrow.addEventListener('click', () => {
-    moveCarousel(1);
-    resetAutoScroll();
+  nextArrow.addEventListener("click", () => {
+    moveNext();
+    resetAutoplay();
   });
 
-  // Card click handler
-  cardsWrapper.addEventListener('click', function(event) {
-    const clickedCard = event.target.closest('.card');
-    if (!clickedCard) return;
-
-    const clickedIndex = parseInt(clickedCard.dataset.index);
-    const diff = clickedIndex - currentIndex;
-    
-    // Only update if clicked card is adjacent or active
-    if (Math.abs(diff) <= 2 || Math.abs(diff) >= cards.length - 2) {
-      moveCarousel(diff);
-      resetAutoScroll();
-    }
-  });
-
-  // Pause auto-scroll on hover
-  cardsWrapper.addEventListener('mouseenter', () => {
-    clearInterval(autoScrollInterval);
-  });
-
-  cardsWrapper.addEventListener('mouseleave', () => {
-    startAutoScroll();
-  });
-
-  // Touch/swipe support for mobile
-  let touchStartX = 0;
-  
-  cardsWrapper.addEventListener('touchstart', (e) => {
-    touchStartX = e.touches[0].clientX;
-    clearInterval(autoScrollInterval);
-  }, {passive: true});
-
-  cardsWrapper.addEventListener('touchend', (e) => {
-    const touchEndX = e.changedTouches[0].clientX;
-    const diff = touchStartX - touchEndX;
-    
-    if (diff > 50) {
-      moveCarousel(1); // Swipe left - next
-    } else if (diff < -50) {
-      moveCarousel(-1); // Swipe right - previous
-    }
-    
-    startAutoScroll();
-  }, {passive: true});
-
-  // Initialize
-  initializeCarousel();
-  startAutoScroll();
-});
-
+  updateCards();
+  startAutoplay();
 
 
         function openLink(url) {
