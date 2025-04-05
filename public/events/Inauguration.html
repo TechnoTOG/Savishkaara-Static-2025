@@ -57,16 +57,33 @@
       },
       resumeSlide() {
         this.autoSlide();
-      }
-    }"
-        x-init="autoSlide()"
-      >
-        <div
-          @touchstart="pauseSlide()"
-          @touchend="resumeSlide()"
-          @mouseenter="pauseSlide()"
-          @mouseleave="resumeSlide()"
-        >
+      },
+        handleTouchStart(e) {
+          this.touchStartX = e.touches[0].clientX;
+          this.pauseSlide();
+        },
+        handleTouchMove(e) {
+          this.touchEndX = e.touches[0].clientX;
+        },
+        handleTouchEnd() {
+          const diff = this.touchStartX - this.touchEndX;
+          const threshold = 50;
+          
+          if (diff > threshold) {
+            // Swipe left - next
+            this.current = (this.current + 1) % this.images.length;
+          } else if (diff < -threshold) {
+            // Swipe right - previous
+            this.current = (this.current - 1 + this.images.length) % this.images.length;
+          }
+          this.resumeSlide();
+        }
+      }" x-init="autoSlide()">
+        <div @touchstart="handleTouchStart" 
+             @touchmove="handleTouchMove" 
+             @touchend="handleTouchEnd" 
+             @mouseenter="pauseSlide()" 
+             @mouseleave="resumeSlide()">
           <img
             :src="images[current]"
             class="slideshow-img"
