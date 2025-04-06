@@ -84,9 +84,7 @@
              @touchmove="handleTouchMove" 
              @touchend="handleTouchEnd" 
              @mouseenter="pauseSlide()" 
-             @mouseleave="resumeSlide()">  x-init="autoSlide()"
-      >
-        
+             @mouseleave="resumeSlide()">  
           <img
             :src="images[current]"
             class="slideshow-img"
