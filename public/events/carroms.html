@@ -86,8 +86,6 @@
              @touchend="handleTouchEnd" 
              @mouseenter="pauseSlide()" 
              @mouseleave="resumeSlide()">
-        x-init="autoSlide()"
-      >
         
           <img
             :src="images[current]"
