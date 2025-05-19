@@ -2,22 +2,24 @@
 
 *Empowering seamless connections for tech enthusiasts everywhere.*
 
-![Last Commit](https://img.shields.io/github/last-commit/TechnoT06/Savishkaara-Static-2025?style=for-the-badge)
-![HTML](https://img.shields.io/badge/html-70.0%25-blue?style=for-the-badge)
-![Languages](https://img.shields.io/github/languages/count/TechnoT06/Savishkaara-Static-2025?style=for-the-badge)
+![Last Commit](https://img.shields.io/github/last-commit/TechnoTOG/Savishkaara-Static-2025?style=flat&logo=git&logoColor=white&color=0080ff)
+![HTML](https://img.shields.io/badge/html-70.0%25-blue)
+![Languages](https://img.shields.io/github/languages/count/TechnoTOG/Savishkaara-Static-2025)
+![GitHub contributors](https://img.shields.io/github/contributors-anon/TechnoTOG/Savishkaara-Static-2025)
 
 ---
 
 **Built with the tools and technologies:**
 
-![Express](https://img.shields.io/badge/Express.js-black?style=for-the-badge&logo=express)
-![JSON](https://img.shields.io/badge/JSON-red?style=for-the-badge&logo=json)
-![NPM](https://img.shields.io/badge/NPM-orange?style=for-the-badge&logo=npm)
-![EJS](https://img.shields.io/badge/EJS-yellow?style=for-the-badge)
-![JavaScript](https://img.shields.io/badge/JavaScript-yellow?style=for-the-badge&logo=javascript)
-![CSS](https://img.shields.io/badge/CSS-blue?style=for-the-badge&logo=css3)
-![Node.js](https://img.shields.io/badge/Node.js-green?style=for-the-badge&logo=node.js)
-![Axios](https://img.shields.io/badge/Axios-purple?style=for-the-badge)
+![Express.js](https://img.shields.io/badge/Express.js-black?logo=express)
+![JSON](https://img.shields.io/badge/JSON-red?logo=json)
+![NPM](https://img.shields.io/badge/NPM-orange?logo=npm)
+![EJS](https://img.shields.io/badge/EJS-yellow)
+![JavaScript](https://img.shields.io/badge/JavaScript-yellow?logo=javascript)
+![CSS](https://img.shields.io/badge/CSS-blue?logo=css3)
+![Node.js](https://img.shields.io/badge/Node.js-green?logo=node.js)
+![Axios](https://img.shields.io/badge/Axios-purple)
+
 
 ---
 
